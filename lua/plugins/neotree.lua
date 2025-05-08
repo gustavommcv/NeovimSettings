@@ -8,24 +8,30 @@ return {
   },
   config = function()
     require("neo-tree").setup({
+      close_if_last_window = true,
       window = {
         position = "right",
         width = 40,
         vim.keymap.set("n", "<leader>e", "<Cmd>Neotree toggle<CR>")
       },
       filesystem = {
+        follow_current_file = {
+          enabled = true,       
+          leave_dirs_open = true,
+        },
         filtered_items = {
           visible = true
         }
       },
       event_handlers = {
-          {
-            event = "file_opened",
-            handler = function(file_path)
-              require("neo-tree").close_all()
-            end
-          },
-        }
+        {
+          event = "file_opened",
+          handler = function(file_path)
+            require("neo-tree").close_all()
+          end
+        },
+      }
     })
   end
 }
+

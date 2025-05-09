@@ -1,30 +1,32 @@
 return {
-	"nvimtools/none-ls.nvim",
+  "nvimtools/none-ls.nvim",
 
-	dependencies = {
-		"nvim-lua/plenary.nvim",
-		"nvimtools/none-ls-extras.nvim",
-	},
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "nvimtools/none-ls-extras.nvim",
+  },
 
-	config = function()
-		local null_ls = require("null-ls")
+  config = function()
+    local null_ls = require("null-ls")
 
-		null_ls.setup({
-			sources = {
-				-- Formatters
-				null_ls.builtins.formatting.stylua, -- Lua
-				null_ls.builtins.formatting.prettier, -- JS/TS 
+    null_ls.setup({
+      sources = {
+        -- Formatters
+        null_ls.builtins.formatting.stylua, -- Lua
+        null_ls.builtins.formatting.prettier, -- JS/TS
+        null_ls.builtins.formatting.shfmt, -- Shell
 
-				-- Completion
-				null_ls.builtins.completion.spell,
-
-				-- Diagnostics
+        -- Linters/Diagnostics
         null_ls.builtins.diagnostics.eslint_d, -- JS/TS
-			},
-		})
+        null_ls.builtins.diagnostics.shellcheck, -- Shell
 
-		vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {
-			desc = "[G]o [F]ormat (LSP)",
-		})
-	end,
+        -- Completion
+        null_ls.builtins.completion.spell,
+      },
+    })
+
+    vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {
+      desc = "[G]o [F]ormat (LSP)",
+    })
+  end,
 }

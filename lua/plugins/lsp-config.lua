@@ -16,9 +16,26 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		config = function()
-			vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
-			vim.lsp.enable("lua_ls")
-			vim.lsp.enable("ts_ls")
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+			vim.keymap.set("n", "<leader>ca", function()
+				vim.lsp.buf.code_action({
+					context = {
+						diagnostics = {},
+						only = { "source.organizeImports.ts", "source.addMissingImports.ts" },
+					},
+				})
+			end, { desc = "Code actions (auto-import)" })
+
+			local lspconfig = require("lspconfig")
+
+			lspconfig.lua_ls.setup({
+				capabilities = capabilities,
+			})
+
+			lspconfig.ts_ls.setup({
+				capabilities = capabilities,
+			})
 		end,
 	},
 }

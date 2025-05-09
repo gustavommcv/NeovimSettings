@@ -13,10 +13,13 @@ return {
 			sources = {
 				-- Formatters
 				null_ls.builtins.formatting.stylua, -- Lua
+				null_ls.builtins.formatting.prettier, -- JS/TS 
+
 				-- Completion
 				null_ls.builtins.completion.spell,
+
 				-- Diagnostics
-				-- require("none-ls.diagnostics.eslint"),
+        null_ls.builtins.diagnostics.eslint_d, -- JS/TS
 			},
 		})
 

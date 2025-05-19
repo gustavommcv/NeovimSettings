@@ -16,6 +16,7 @@ return {
           "angularls",
           "cssls",
           "emmet_language_server",
+          "gopls",
         },
       })
     end,
@@ -24,6 +25,7 @@ return {
     "neovim/nvim-lspconfig",
     config = function()
       local lspconfig = require("lspconfig")
+      local util = require("lspconfig/util")
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
       lspconfig.lua_ls.setup({
@@ -47,6 +49,10 @@ return {
       })
 
       lspconfig.emmet_language_server.setup({
+        capabilities = capabilities,
+      })
+
+      lspconfig.gopls.setup({
         capabilities = capabilities,
       })
 
